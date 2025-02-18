@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Gasoek+One&display=swap');
+
+
+* {
+    font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+    font-size: 18px;
+}
+
+.showBox {
+    max-height: 700px;
+    max-width: 90%;
+    display: flex;
+    min-height: 500px;
+    border-radius: 20px;
+    border: none;
+    overflow-y: auto;
+    align-items: center;
+    margin: auto;
+    margin-bottom: 1%;
+    margin-top: 1%;
+    background-color: #eecb86;
+}
+
+.box {
+    margin: auto;
+    width: 90%;
+}
+
+.upper {
+    display: flex;
+    margin-top: 1%;
+}
+
+.upperImg {
+    width: 60px;
+    height: 60px;
+    background-color: green;
+    margin-right: 10px;
+}
+
+.upperName {
+    min-width: 70px;
+    width: 10%;
+    margin-right: 10px;
+    background-color: ivory;
+    border: none;
+    border-radius: 10px;
+}
+
+.upperText {
+    width: 85%;
+    margin-right: 10px;
+    background-color: ivory;
+    border-radius: 10px;
+}
+
+.upperHeart{
+    font-size: 40px;
+}
+
+.upperCount {
+    width: 5%;
+    font-size: 40px;
+}
+
+.inputBtn {
+
+    margin-top: 5px;
+    background-color: #f26d10;
+    color: ivory;
+    border-radius: 10px;
+    border-color: transparent;
+
+    min-width: 5%;
+    width: 10%;
+    margin-left: 5px;
+    margin-bottom: 10px;
+
+    transition: transform 0.3s ease;
+}
+
+.under {
+    flex-basis: 100%;
+    text-align: right;
+    margin-bottom: 10px;
+}
+
+.underDate {
+
+    color: ivory;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.underEdit {
+    margin: 10px;
+}
+
+.modal-dialog {
+    max-width: 90%;
+}
+
+.modal-body {
+    width: 100%;
+}
+
+.inputBox {
+    max-width: 90%;
+    padding-top: 20px;
+    border-radius: 20px;
+    border: none;
+    margin: auto;
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    background-color: #eecb86;
+}
+
+.input {
+    margin: auto;
+    margin-bottom: 1%;
+    flex-basis: 90%;
+    height: 50px;
+}
+
+.nameInput {
+    width: 10%;
+    height: 90%;
+    margin-left: 5px;
+    background-color: ivory;
+    border-radius: 10px;
+}
+
+.textInput {
+    width: 75%;
+    height: 90%;
+    margin-left: 5px;
+    background-color: ivory;
+    border-radius: 10px;
+}
+

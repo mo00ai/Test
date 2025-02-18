@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
+    integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
+    crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="./src/css/guestbook.css" />
+
+    <style>
+</style>
+
+<script type="module">
+    
+// Firebase SDK 라이브러리 가져오기
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { collection, addDoc, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { getDocs, getDoc, orderBy, query } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+
+
+
+
+// Firebase 구성 정보 설정
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+    apiKey: "AIzaSyA1Kr2hno0jwi2RBsbp1tVqo4Rnyr1fcsQ",
+    authDomain: "sparta-582e9.firebaseapp.com",
+    projectId: "sparta-582e9",
+    storageBucket: "sparta-582e9.firebasestorage.app",
+    messagingSenderId: "749910822521",
+    appId: "1:749910822521:web:19debe65b704ab301acea8",
+    measurementId: "G-CNPLGMZJGW"
+};
+
+
+// Firebase 인스턴스 초기화
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+const pj = collection(getFirestore(app), "pj")
+let docs = await getDocs(query(pj, orderBy("date", "asc")));
+$('#box').empty();
+docs.forEach((doc) => {
+    let row = doc.data();
+    //firebase id 불러옴
+    let id = doc.id;
+    let name = row['name'];
+    let text = row['text'];
+    let count = row['count'];
+    let datenum = row['date'];
+    let date = datenum.toDate();
+
+    var year = date.getFullYear();
+    var month = ('0' + (date.getMonth() + 1)).slice(-2);
+    var day = ('0' + date.getDate()).slice(-2);
+
+    var dateString = year + '-' + month + '-' + day;
+
+    let temp_html = `
+                    <div class="upper">
+                        <img class="upperImg" src=""></img>
+                        <input type="text" class="upperName" id="${id}name" value="${name}"></span>
+                        <input type="text" class="upperText" id="${id}text" value="${text}"></span>
+                        <span class="upperHeart" id="heartBtn" data-stuff="${id}">🧡</span>
+                        <span class="upperCount">${count}</span>
+                        </div>
+                        <div class="under">
+                            <span class="underDate">날짜  (${dateString})</span>
+                            <button class="inputBtn" id="editBtn" data-stuff="${id}">수정</button>
+                            <button class="inputBtn" id="delBtn" data-stuff="${id}">삭제</button>
+                        </div>
+                    </div>
+                `
+    $('#box').append(temp_html);
+    console.log(row);
+});
+// 임의값에 저장한 id를 불러옴
+
+$(document).on('click', '#delBtn', async function (event) {
+    let id = event.target.dataset.stuff;
+
+    await deleteDoc(doc(db, 'pj', id));
+    await window.location.reload();
+})
+
+$(document).on('click', '#editBtn', async function (event) {
+    let id = event.target.dataset.stuff;
+    let nameString = '#' + id + 'name';
+    let textString = '#' + id + 'text';
+    let name = $(nameString).val();
+    let text = $(textString).val();
+
+    await updateDoc(doc(db, 'pj', id), { name: name, text: text });
+    await window.location.reload();
+})
+
+$(document).on('click', '#heartBtn', async function (event) {
+    let id = event.target.dataset.stuff;
+    let gotdoc = await getDoc(doc(db, "pj", id));
+    let count = gotdoc.data().count;
+    ++count;
+    await updateDoc(doc(db, 'pj', id), { count: count });
+    await window.location.reload();
+})
+
+$("#inputBtn").click(async function () {
+    let name = $('#name').val();
+    let text = $('#text').val();
+    let date = new Date();
+
+    let doc = { 'name': name, 'text': text, 'count': 0, 'date': date };
+
+    await addDoc(collection(db, "pj"), doc);
+    window.location.reload();
+})
+</script>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="./src/css/common.css" />
+    <link rel="stylesheet" href="./src/css/ahyun.css" />
+</head>
+
+<body>
+        <!-- 헤더 내비게이션 바바 -->
+        <header id="header-box" class="d-flex align-items-center justify-content-center py-3 w-100">
+            <ul class="nav nav-pills">
+                <li id="logo" class="nav-item d-flex justify-content-center">
+                    <a href="./index.html" class="d-flex justify-content-center">
+                        <img src="./asset/찍먹파 로고.png" width="10%" alt="찍먹파 로고">
+                    </a>
+                </li>
+            </ul>
+        </header>
+    
+    <!--방명록 위쪽 상자-->
+    <div class="showBox">
+        <div class="box" id="box">
+            <!--방명록 이미지, 이름, 텍스트, 하트 상자-->
+            <div class="upper">
+                <img class="upperImg" src=""></img>
+                <input type="text" class="upperName" id="idname" value="이름"></span>
+                <input type="text" class="upperText" id="idtext" value="글"></span>
+                <span onclick="" class="upperHeart" id="heartBtn">🧡</span>
+                <span class="upperCount">0</span>
+            </div>
+            <!--방명록 날짜, 수정버튼, 삭제버튼-->
+            <div class="under">날짜<span class="underDate" id="date">(00.00.00)</span>
+                <button class="inputBtn" id="editBtn" data-stuff="">수정</button>
+                <button class="inputBtn" id="delBtn" data-stuff="">삭제</button>
+            </div>
+        </div>
+    </div>
+    <!--방명록 하단 입력 상자-->
+    <div class="inputBox">
+        <div class="input">
+            <input type="text" class="nameInput" id="name" placeholder="이름"></textarea>
+            <input type="text" class="textInput" id="text" placeholder="내용"></textarea>
+            <button class="inputBtn" id="inputBtn">작성</button>
+        </div>
+    </div>
+
+
+    <!-- footer -->
+    <footer id="footer-box"
+        class="d-flex flex-wrap justify-content-between my-4 align-items-center py-3 border-top w-100"
+        style="margin-bottom: 0px;">
+
+        <div class="col-md-4 ms-3">
+            <p class="mb-0 text-body-secondary footer-p ms-3">내일배움캠프</p>
+            <p class="mb-0 text-body-secondary footer-p ms-3">미니 프로젝트</p>
+            <p class="mb-0 text-body-secondary footer-p ms-3">성재현, 윤예진, 조아현, 채정민, 황기하</p>
+        </div>
+
+        <a href=""
+            class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+            <img src="./asset/찍먹파 로고.png" id="footer-image" width="25%">
+        </a>
+    </footer>
+</body>
+
+</html>
