@@ -42,7 +42,7 @@ $(document).ready(async function () {
         $('.row').append(
             `
             <div class="col">
-                    <div class="card text-center shadow-sm p-3 team-card" id=${doc.id}>
+                    <div class="card text-center shadow-sm p-3 team-card" id="${doc.id}">
                         <img src="${row.memberPhoto}" class="member-image rounded-profile mx-auto d-block" width="100"
                             alt="Profile">
                         <div class="card-body">
@@ -61,11 +61,11 @@ $(document).ready(async function () {
 $("#modal_addBtn")
     .on('click', async (e) => {
         let memberInfo = {
-            memberBlog: $("#blogInput").value,
-            memberMBTI: $("#mbtiInput").value,
-            memberName: $("#nameInput").value,
+            memberBlog: $("#blogInput").val(),
+            memberMBTI: $("#mbtiInput").val(),
+            memberName: $("#nameInput").val(),
             memberPhoto: `../asset/memberImages/${imageArray[Math.floor(Math.random() * imageArray.length)]}`,
-            passion: $("#planInput").value
+            passion: $("#planInput").val()
         };
 
         await addDoc(collection(db, collection_name), memberInfo);
@@ -96,11 +96,10 @@ $("#modal_updateBtn")
     console.log('Update Target: '+member.id);
 
     let memberUpdateInfo = {
-        memberBlog: $('.updateMemberBlog').value,
-        memberMBTI: $('.updateMemberMBTI').value,
-        memberName: $('.updateMemberName').value,
-        memberPhoto: $('.updateMemberPhoto').value,
-        passion: $('.updatePassion').value
+        memberBlog: $('#blogUpdate').val(),
+        memberMBTI: $('#mbtiUpdate').val(),
+        memberName: $('#nameUpdate').val(),
+        passion: $('#planUpdate').val()
     };
 
     await updateDoc(doc(db, collection_name, member.id), memberUpdateInfo);
