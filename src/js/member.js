@@ -22,6 +22,15 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const collection_name = "teamMember";
 
+// 랜덤 이미지 가져오기
+const imageArray = [
+            "blue.jpg",
+            "green.jpg",
+            "red.jpg",
+            "yellow.jpg"
+    ]; 
+
+
 /** 메모
  * 멤버 무슨 순서로 불러올건지?
  * 사진 불러오기 구현 (로컬 src)
@@ -67,7 +76,7 @@ document.querySelector("#create_btn")
             memberBlog: document.querySelector("#inputMemberBlog").value,
             memberMBTI: document.querySelector("#inputMemberMBTI").value,
             memberName: document.querySelector("#inputMemberName").value,
-            memberPhoto: document.querySelector("#inputMemberPhoto").value,
+            memberPhoto: `../asset/memberImages/${imageArray[Math.floor(Math.random() * imageArray.length)]}`,
             passion: document.querySelector("#inputPassion").value
         };
 
