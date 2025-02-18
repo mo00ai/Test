@@ -83,6 +83,7 @@ docs.forEach((doc) => {
 });
 // 임의값에 저장한 id를 불러옴
 
+// 삭제버튼 
 $(document).on('click', '#delBtn', async function (event) {
     let id = event.target.dataset.stuff;
 
@@ -90,8 +91,11 @@ $(document).on('click', '#delBtn', async function (event) {
     await window.location.reload();
 })
 
+// 수정버튼
 $(document).on('click', '#editBtn', async function (event) {
     let id = event.target.dataset.stuff;
+    //수정버튼은 컬렉션id를 가지고있으며 이름, text가 입력된 인풋박스는 id에 컬렉션id를 포함하고 있음
+    //어떤 인풋박스를 수정할지 인식하기 위해 컬렉션id를 이용함
     let nameString = '#' + id + 'name';
     let textString = '#' + id + 'text';
     let name = $(nameString).val();
@@ -101,6 +105,7 @@ $(document).on('click', '#editBtn', async function (event) {
     await window.location.reload();
 })
 
+// 좋아요버튼 
 $(document).on('click', '#heartBtn', async function (event) {
     let id = event.target.dataset.stuff;
     let gotdoc = await getDoc(doc(db, "pj", id));
@@ -110,6 +115,7 @@ $(document).on('click', '#heartBtn', async function (event) {
     await window.location.reload();
 })
 
+//작성버튼튼
 $("#inputBtn").click(async function () {
     let name = $('#name').val();
     let text = $('#text').val();
