@@ -34,16 +34,15 @@ const imageArray = [
 
 
 // Read Members
-document.addEventListener("DOMContentLoaded", async function () {
+$(document).ready(async function () {
     let docs = await getDocs(collection(db, collection_name));
     docs.forEach((doc) => {
         let row = doc.data();
         // 멤버 카드에 읽어온 데이터 추가
-        const memberCard = document.querySelector('.row').insertAdjacentHTML(
-            'beforeend',
+        $('.row').append(
             `
             <div class="col">
-                    <div class="card text-center shadow-sm p-3 team-card">
+                    <div class="card text-center shadow-sm p-3 team-card" id=${doc.id}>
                         <img src="${row.memberPhoto}" class="member-image rounded-profile mx-auto d-block" width="100"
                             alt="Profile">
                         <div class="card-body">
@@ -59,14 +58,14 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 // Create Members
-document.querySelector("#create_btn")
-    .addEventListener('click', async (e) => {
+$("#modal_addBtn")
+    .on('click', async (e) => {
         let memberInfo = {
-            memberBlog: document.querySelector("#inputMemberBlog").value,
-            memberMBTI: document.querySelector("#inputMemberMBTI").value,
-            memberName: document.querySelector("#inputMemberName").value,
+            memberBlog: $("#blogInput").value,
+            memberMBTI: $("#mbtiInput").value,
+            memberName: $("#nameInput").value,
             memberPhoto: `../asset/memberImages/${imageArray[Math.floor(Math.random() * imageArray.length)]}`,
-            passion: document.querySelector("#inputPassion").value
+            passion: $("#planInput").value
         };
 
         await addDoc(collection(db, collection_name), memberInfo);
@@ -77,12 +76,10 @@ document.querySelector("#create_btn")
 
 
 // Delete Members
-document.addEventListener('click', async (e) => {
-    if (!e.target.classList.contains("delete-btn")) {
-        return;
-    }
+$("#modal_deleteBtn")
+    .on('click', async (e) => {
 
-    let userId = e.target.closest('.member').id;              // 가장 가까운 member 클래스의 userId
+    let userId = e.target.closest('.team-card').id;              // 가장 가까운 member 클래스의 userId
     console.log('Delete Target: '+userId);
 
     await deleteDoc(doc(db, collection_name, userId));      // userId와 일치하는 컬렉션 제거
@@ -92,20 +89,18 @@ document.addEventListener('click', async (e) => {
 
 
 // Update Members
-document.addEventListener('click', async (e) => {
-    if (!e.target.classList.contains("update-btn")) {
-        return;
-    }
+$("#modal_updateBtn")
+    .on('click', async (e) => {
 
-    let member = e.target.closest('.member');       // 클릭된 수정 버튼을 포함하는 Member 찾기
+    let member = e.target.closest('.team-card');       // 클릭된 수정 버튼을 포함하는 Member 찾기
     console.log('Update Target: '+member.id);
 
     let memberUpdateInfo = {
-        memberBlog: member.querySelector('.updateMemberBlog').value,
-        memberMBTI: member.querySelector('.updateMemberMBTI').value,
-        memberName: member.querySelector('.updateMemberName').value,
-        memberPhoto: member.querySelector('.updateMemberPhoto').value,
-        passion: member.querySelector('.updatePassion').value
+        memberBlog: $('.updateMemberBlog').value,
+        memberMBTI: $('.updateMemberMBTI').value,
+        memberName: $('.updateMemberName').value,
+        memberPhoto: $('.updateMemberPhoto').value,
+        passion: $('.updatePassion').value
     };
 
     await updateDoc(doc(db, collection_name, member.id), memberUpdateInfo);
