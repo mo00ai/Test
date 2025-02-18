@@ -1,0 +1,60 @@
+.modal {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 500px;
+    height: 605px;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+#profileModal{
+    position: fixed;
+    display: none;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 500px;
+    height: 650px;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+#modal-image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    /* ✅ 원형으로 만들기 */
+
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    /* 중앙 정렬 */
+}
+
+/* input-group-text의 고정 너비 설정 */
+.input-group-text {
+    min-width: 80px;
+    padding: 15px;
+
+    background-color: #eecb86;
+    color: black;
+    text-align: center;
+    display: flex;
+    /* Flexbox로 요소를 정렬 */
+    align-items: center;
+    /* 수직 가운데 정렬 */
+    justify-content: center;
+    /* 수평 가운데 정렬 */
+}
