@@ -25,9 +25,9 @@ body {
 #header-box {
     background-color: #582011;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     height: 70px;
 
 }
@@ -74,6 +74,7 @@ body {
     z-index: 1000;
     /* 다른 요소 위에 배치 */
     margin-right: 200px;
+    margin-top: -20px;
 }
 
 #guest-button:hover {
