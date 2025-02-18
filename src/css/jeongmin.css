@@ -13,8 +13,10 @@
     display: none;
     justify-content: center;
     align-items: center;
+
 }
-#profileModal{
+
+#profileModal {
     position: fixed;
     display: none;
     justify-content: center;
@@ -30,6 +32,24 @@
     justify-content: center;
     align-items: center;
 }
+
+#profileCreateModal {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 500px;
+    height: 650px;
+
+    background-color: rgba(0, 0, 0, 0.4);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
 #modal-image {
     width: 300px;
     height: 300px;

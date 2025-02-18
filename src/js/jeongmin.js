@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".team-card").forEach((card) => {
         card.addEventListener("click", function (event) {
             // 클릭한 카드에서 정보 가져오기
-            console.log("카드 클릭됨",this);
+            console.log("카드 클릭됨", this);
 
             const imgElement = card.querySelector(".member-image").src;
             const nameElement = card.querySelector(".member-name").innerText;
@@ -48,9 +48,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // 팀원 추가버튼 클릭시 프로필 모달 열기
     if (openModalBtn && modal2) {
         openModalBtn.addEventListener("click", function () {
-            modal2.style.dispaly = "flex";
+            modal2.style.display = "flex";
         });
     }
+
+
 
     // 모달1 닫기 (x클릭시)
     closeModalBtn1.addEventListener("click", closeModal1);
