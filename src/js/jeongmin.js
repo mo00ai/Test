@@ -120,7 +120,12 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
     }
 
-
+    // 팀원 추가 이미지 업로드 버튼 기능 추가
+    document.getElementById("upload-btn").addEventListener("click", 
+        function (e) {
+            document.getElementById("modal-update-image").src =
+            `../asset/memberImages/${imageArray[Math.floor(Math.random() * imageArray.length)]}`;       // 프로필 업로드 버튼 클릭 시 랜덤 이미지 출력
+        })
 
     // 모달1 닫기 (x클릭시)
     closeModalBtn1.addEventListener("click", closeModal1);
