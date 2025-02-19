@@ -149,11 +149,8 @@ $("#modal_addBtn")
 $("#modal_deleteBtn")
     .on('click', async (e) => {
 
-    let userId = e.target.closest('.team-card').id;              // 가장 가까운 member 클래스의 userId
-    console.log('Delete Target: '+userId);
-
-    await deleteDoc(doc(db, collection_name, userId));      // userId와 일치하는 문서 제거
-    console.log('삭제 성공');
+    let member = e.target.closest('.modal-content');              // 클릭된 수정 버튼을 포함하는 Member 찾기
+    await deleteDoc(doc(db, collection_name, member.id));      // Member id와 일치하는 문서 제거
     window.location.reload();
 });
 
@@ -163,7 +160,6 @@ $("#modal_updateBtn")
     .on('click', async (e) => {
 
     let member = e.target.closest('.modal-content');       // 클릭된 수정 버튼을 포함하는 Member 찾기
-    console.log('Update Target: '+member.id);
 
     let memberUpdateInfo = {
         memberBlog: $('#blogUpdate').val(),
@@ -172,8 +168,7 @@ $("#modal_updateBtn")
         passion: $('#planUpdate').val()
     };
 
-    await updateDoc(doc(db, collection_name, member.id), memberUpdateInfo);
-    console.log('업데이트 성공: '+$('#nameUpdate').val());
+    await updateDoc(doc(db, collection_name, member.id), memberUpdateInfo); // Member id와 일치 하는 문서 업데이트
     window.location.reload();
 })
 
