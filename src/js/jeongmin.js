@@ -17,7 +17,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const collection_name = "teamMember";
-
+let members = []
 
 // 랜덤 이미지 가져오기
 const imageArray = [
@@ -35,6 +35,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     let docs = await getDocs(collection(db, collection_name));
     docs.forEach((doc) => {
         let row = doc.data();
+        members.push({docId: doc.id,
+            img: row.memberPhoto,
+            name: row.memberName,
+            mbti: row.memberMBTI,
+            blog: row.memberBlog,
+            plan: row.passion,
+        });
+
         // 멤버 카드에 읽어온 데이터 추가
         $('.row').append(
             `
@@ -65,6 +73,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     const modalImage = document.getElementById("modal-image");
     const nameInput = modal1.querySelector("input[placeholder='이름 입력']");
     const mbtiInput = modal1.querySelector("input[placeholder='MBTI 입력']");
+    const blogInput = modal1.querySelector("input[placeholder='블로그 링크 입력']");
+    const planInput = modal1.querySelector("input[placeholder='포부 입력']");
 
     // 카드 클릭시 이벤트 추가
     document.querySelectorAll(".team-card").forEach((card) => {
@@ -76,13 +86,17 @@ document.addEventListener("DOMContentLoaded", async function () {
             const nameElement = card.querySelector(".member-name").innerText;
             const mbtiElement = card.querySelector(".member-mbti").innerText;
             const memberId = card.id;
+            const blogElement = members.find(member => member.docId == memberId)?.blog || null;
+            const planElement = members.find(member => member.docId == memberId)?.plan || null;
 
             console.log("img 데이터: "+imgElement);
 
             // 모달에 데이터 적용
             modalImage.src = imgElement;
-            nameInput.value = nameElement;
+            nameInput.value = nameElement;  
             mbtiInput.value = mbtiElement;
+            blogInput.value = blogElement;
+            planInput.value = planElement;
             modal1.querySelector(".modal-content").id = memberId;
             
             // 모달 열기
