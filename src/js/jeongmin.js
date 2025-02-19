@@ -44,9 +44,11 @@ document.addEventListener("DOMContentLoaded", async function () {
     const modalImage = document.getElementById("modal-image");
     const nameInput = modal1.querySelector("input[placeholder='이름 입력']");
     const mbtiInput = modal1.querySelector("input[placeholder='MBTI 입력']");
+    const blogInput = modal1.querySelector("input[placeholder='블로그 링크 입력']");
+    const planInput = modal1.querySelector("input[placeholder='포부 입력']");
 
     
-    // 파이어 베이스에서 멤버 데이터 조회
+    // 파이어 베이스에서 팀원 데이터 조회
     let docs = await getDocs(collection(db, collection_name));
     docs.forEach((doc) => {
         let row = doc.data();
@@ -81,6 +83,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             modalImage.src = imgElement;
             nameInput.value = nameElement;
             mbtiInput.value = mbtiElement;
+            
 
             // 모달 열기
             modal1.style.display = "flex";
@@ -124,7 +127,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 
 
-// 멤버 추가
+// 팀원 추가
 $("#modal_addBtn")
     .on('click', async (e) => {
         let memberInfo = {
@@ -142,7 +145,7 @@ $("#modal_addBtn")
     });
 
 
-// 멤버 삭제
+// 팀원 삭제
 $("#modal_deleteBtn")
     .on('click', async (e) => {
 
@@ -155,7 +158,7 @@ $("#modal_deleteBtn")
 });
 
 
-// 멤버 수정
+// 팀원 수정
 $("#modal_updateBtn")
     .on('click', async (e) => {
 
