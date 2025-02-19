@@ -65,7 +65,8 @@
     min-width: 80px;
     padding: 15px;
 
-    background-color: #eecb86;
+    /* 아현 수정정 */
+    background-color: #eecb86 !important;
     color: black;
     text-align: center;
     display: flex;
@@ -74,4 +75,60 @@
     /* 수직 가운데 정렬 */
     justify-content: center;
     /* 수평 가운데 정렬 */
+}
+
+
+
+/* 아현 수정 */
+.modal-content {
+    background-color: #fefaef !important;
+    border-radius: 10px !important;
+    border-color: transparent;
+}
+
+.modal_addBtn:hover {
+    background-color: #f26d10 !important;
+    color: beige !important;
+}
+
+.close-btn {
+    border-radius: 10px !important;
+}
+
+.btn-outline-warning {
+    border-radius: 10px !important;
+}
+
+
+.close-btn {
+    background-color: #6f8b4f;
+    color: ivory;
+    border-color: transparent;
+
+    margin-bottom: 10px;
+}
+
+.upload-btn {
+    background-color: #6f8b4f;
+    color: ivory;
+    border-color: transparent;
+    border-radius: 10px;
+
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.close-btn:hover {
+    background-color: #8eb166;
+}
+
+.upload-btn :hover {
+    background-color: #8eb166;
+}
+
+.modal-content>h3 {
+    text-align: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
