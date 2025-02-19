@@ -1,7 +1,7 @@
 // import { db } from "./firebaseConfig.js";  // Firebase 설정 가져오기 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
-import { doc, collection,addDoc, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
+import { doc, collection, addDoc, getDocs, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js";
 
 
 // Firebase App Config
@@ -12,7 +12,7 @@ const firebaseConfig = {
     storageBucket: "diporpour-41a58.firebasestorage.app",
     messagingSenderId: "406083699748",
     appId: "1:406083699748:web:474a53c7f539a18297c4b1"
-  };
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
@@ -27,7 +27,7 @@ const imageArray = [
     "d.png",
     "e.png",
     "f.png",
-]; 
+];
 
 
 document.addEventListener("DOMContentLoaded", async function () {
@@ -35,7 +35,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     let docs = await getDocs(collection(db, collection_name));
     docs.forEach((doc) => {
         let row = doc.data();
-        members.push({docId: doc.id,
+        members.push({
+            docId: doc.id,
             img: row.memberPhoto,
             name: row.memberName,
             mbti: row.memberMBTI,
@@ -57,9 +58,9 @@ document.addEventListener("DOMContentLoaded", async function () {
                     </div>
                 </div>
                 `
-            )
-        });
-    
+        )
+    });
+
     // 메인페이지 팀원 상세정보 모달
     const modal1 = document.getElementById("profileModal");
     const closeModalBtn1 = document.getElementById("closeModalBtn");
@@ -76,6 +77,10 @@ document.addEventListener("DOMContentLoaded", async function () {
     const blogInput = modal1.querySelector("input[placeholder='블로그 링크 입력']");
     const planInput = modal1.querySelector("input[placeholder='포부 입력']");
 
+    //모달 나타나면 주위 배경 까매지게
+    const fullScreen = document.getElementById("fullScreen");
+    fullScreen.classList.add("display-none");
+
     // 카드 클릭시 이벤트 추가
     document.querySelectorAll(".team-card").forEach((card) => {
         card.addEventListener("click", function (event) {
@@ -89,18 +94,19 @@ document.addEventListener("DOMContentLoaded", async function () {
             const blogElement = members.find(member => member.docId == memberId)?.blog || null;
             const planElement = members.find(member => member.docId == memberId)?.plan || null;
 
-            console.log("img 데이터: "+imgElement);
+            console.log("img 데이터: " + imgElement);
 
             // 모달에 데이터 적용
             modalImage.src = imgElement;
-            nameInput.value = nameElement;  
+            nameInput.value = nameElement;
             mbtiInput.value = mbtiElement;
             blogInput.value = blogElement;
             planInput.value = planElement;
             modal1.querySelector(".modal-content").id = memberId;
-            
+
             // 모달 열기
             modal1.style.display = "flex";
+            fullScreen.classList.remove("display-none");
         });
     });
 
@@ -108,8 +114,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (openModalBtn && modal2) {
         openModalBtn.addEventListener("click", function () {
             modal2.style.display = "flex";
+            fullScreen.classList.remove("display-none");
             modal2.querySelector("#modal-image").src =
-            `../asset/memberImages/${imageArray[Math.floor(Math.random() * imageArray.length)]}`;       // 팀원 추가 시 랜덤 이미지 출력
+                `../asset/memberImages/${imageArray[Math.floor(Math.random() * imageArray.length)]}`;       // 팀원 추가 시 랜덤 이미지 출력
         });
     }
 
@@ -134,10 +141,12 @@ document.addEventListener("DOMContentLoaded", async function () {
     // 모달1 닫기 함수
     function closeModal1() {
         if (modal1) modal1.style.display = "none";
+        fullScreen.classList.add("display-none");
     }
     // 모달2 닫기 함수
     function closeModal2() {
         if (modal2) modal2.style.display = "none";
+        fullScreen.classList.add("display-none");
     }
 })
 
@@ -165,28 +174,28 @@ $("#modal_addBtn")
 $("#modal_deleteBtn")
     .on('click', async (e) => {
 
-    let member = e.target.closest('.modal-content');              // 클릭된 수정 버튼을 포함하는 Member 찾기
-    await deleteDoc(doc(db, collection_name, member.id));      // Member id와 일치하는 문서 제거
-    window.location.reload();
-});
+        let member = e.target.closest('.modal-content');              // 클릭된 수정 버튼을 포함하는 Member 찾기
+        await deleteDoc(doc(db, collection_name, member.id));      // Member id와 일치하는 문서 제거
+        window.location.reload();
+    });
 
 
 // 팀원 수정
 $("#modal_updateBtn")
     .on('click', async (e) => {
 
-    let member = e.target.closest('.modal-content');       // 클릭된 수정 버튼을 포함하는 Member 찾기
+        let member = e.target.closest('.modal-content');       // 클릭된 수정 버튼을 포함하는 Member 찾기
 
-    let memberUpdateInfo = {
-        memberBlog: $('#blogUpdate').val(),
-        memberMBTI: $('#mbtiUpdate').val(),
-        memberName: $('#nameUpdate').val(),
-        passion: $('#planUpdate').val()
-    };
+        let memberUpdateInfo = {
+            memberBlog: $('#blogUpdate').val(),
+            memberMBTI: $('#mbtiUpdate').val(),
+            memberName: $('#nameUpdate').val(),
+            passion: $('#planUpdate').val()
+        };
 
-    await updateDoc(doc(db, collection_name, member.id), memberUpdateInfo); // Member id와 일치 하는 문서 업데이트
-    window.location.reload();
-})
+        await updateDoc(doc(db, collection_name, member.id), memberUpdateInfo); // Member id와 일치 하는 문서 업데이트
+        window.location.reload();
+    })
 
 
 

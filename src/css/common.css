@@ -71,7 +71,7 @@ body {
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
     /* 부드러운 애니메이션 효과 */
-    z-index: 1000;
+    z-index: 100;
     /* 다른 요소 위에 배치 */
     margin-right: 200px;
     margin-top: -20px;
