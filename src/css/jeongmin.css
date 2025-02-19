@@ -47,7 +47,7 @@
     align-items: center;
 }
 
-#modal-image {
+.modal-image {
     width: 300px;
     height: 300px;
     border-radius: 50%;
