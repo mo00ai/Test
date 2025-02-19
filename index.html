@@ -15,7 +15,30 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <style>
+        .fullscreen-div {
+            position: fixed;
+            /* 화면 전체를 덮도록 설정 */
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
 
+            background-color: rgba(0, 0, 0, 0.5);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+
+            z-index: 200;
+
+            pointer-events: none;
+        }
+
+        .display-none {
+            display: none;
+        }
     </style>
 
 
@@ -25,6 +48,9 @@
     <!-- 본인 js 파일 정리 -->
     <script src="./src/js/ahyun.js"></script>
     <script type="module" src="./src/js/jeongmin.js"></script>
+
+    <div class="fullscreen-div " id="fullScreen">
+    </div>
 
 
     <!-- 헤더 내비게이션 바바 -->
@@ -135,7 +161,7 @@
         <div class="container my-5">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4"
                 style="width:93%; margin-left: 40px;">
-            <!-- 카드 -->
+                <!-- 카드 -->
             </div>
         </div>
     </div>
