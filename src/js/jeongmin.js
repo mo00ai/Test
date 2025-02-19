@@ -108,6 +108,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     if (openModalBtn && modal2) {
         openModalBtn.addEventListener("click", function () {
             modal2.style.display = "flex";
+            modal2.querySelector("#modal-image").src =
+            `../asset/memberImages/${imageArray[Math.floor(Math.random() * imageArray.length)]}`;       // 팀원 추가 시 랜덤 이미지 출력
         });
     }
 
@@ -148,7 +150,7 @@ $("#modal_addBtn")
             memberBlog: $("#blogInput").val(),
             memberMBTI: $("#mbtiInput").val(),
             memberName: $("#nameInput").val(),
-            memberPhoto: `../asset/memberImages/${imageArray[Math.floor(Math.random() * imageArray.length)]}`,
+            memberPhoto: $("#modal-image").attr("src"),
             passion: $("#planInput").val()
         };
 
