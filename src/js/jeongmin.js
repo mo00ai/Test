@@ -31,23 +31,6 @@ const imageArray = [
 
 
 document.addEventListener("DOMContentLoaded", async function () {
-    // 메인페이지 팀원 상세정보 모달
-    const modal1 = document.getElementById("profileModal");
-    const closeModalBtn1 = document.getElementById("closeModalBtn");
-    // 메인페이지 팀원 추가 모달
-    const modal2 = document.getElementById("profileCreateModal");
-    const openModalBtn = document.getElementById("team-add");
-    const closeModalBtn2 = document.getElementById("modal_cancelBtn");
-
-
-    // 모달 내부 요소 가져오기
-    const modalImage = document.getElementById("modal-image");
-    const nameInput = modal1.querySelector("input[placeholder='이름 입력']");
-    const mbtiInput = modal1.querySelector("input[placeholder='MBTI 입력']");
-    const blogInput = modal1.querySelector("input[placeholder='블로그 링크 입력']");
-    const planInput = modal1.querySelector("input[placeholder='포부 입력']");
-
-    
     // 파이어 베이스에서 팀원 데이터 조회
     let docs = await getDocs(collection(db, collection_name));
     docs.forEach((doc) => {
@@ -68,6 +51,20 @@ document.addEventListener("DOMContentLoaded", async function () {
                 `
             )
         });
+    
+    // 메인페이지 팀원 상세정보 모달
+    const modal1 = document.getElementById("profileModal");
+    const closeModalBtn1 = document.getElementById("closeModalBtn");
+
+    // 메인페이지 팀원 추가 모달
+    const modal2 = document.getElementById("profileCreateModal");
+    const openModalBtn = document.getElementById("team-add");
+    const closeModalBtn2 = document.getElementById("modal_cancelBtn");
+
+    // 모달 내부 요소 가져오기
+    const modalImage = document.getElementById("modal-image");
+    const nameInput = modal1.querySelector("input[placeholder='이름 입력']");
+    const mbtiInput = modal1.querySelector("input[placeholder='MBTI 입력']");
 
     // 카드 클릭시 이벤트 추가
     document.querySelectorAll(".team-card").forEach((card) => {
@@ -78,13 +75,16 @@ document.addEventListener("DOMContentLoaded", async function () {
             const imgElement = card.querySelector(".member-image").src;
             const nameElement = card.querySelector(".member-name").innerText;
             const mbtiElement = card.querySelector(".member-mbti").innerText;
+            const memberId = card.id;
+
+            console.log("img 데이터: "+imgElement);
 
             // 모달에 데이터 적용
             modalImage.src = imgElement;
             nameInput.value = nameElement;
             mbtiInput.value = mbtiElement;
+            modal1.querySelector(".modal-content").id = memberId;
             
-
             // 모달 열기
             modal1.style.display = "flex";
         });
@@ -162,7 +162,7 @@ $("#modal_deleteBtn")
 $("#modal_updateBtn")
     .on('click', async (e) => {
 
-    let member = e.target.closest('.team-card');       // 클릭된 수정 버튼을 포함하는 Member 찾기
+    let member = e.target.closest('.modal-content');       // 클릭된 수정 버튼을 포함하는 Member 찾기
     console.log('Update Target: '+member.id);
 
     let memberUpdateInfo = {
@@ -173,7 +173,7 @@ $("#modal_updateBtn")
     };
 
     await updateDoc(doc(db, collection_name, member.id), memberUpdateInfo);
-    console.log('업데이트 성공: '+memberName);
+    console.log('업데이트 성공: '+$('#nameUpdate').val());
     window.location.reload();
 })
 
